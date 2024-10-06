@@ -1,30 +1,38 @@
-import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+part of 'number_trivia_bloc.dart';
 
-@immutable
-abstract class NumberTriviaState extends Equatable {
+/// States for the NumberTriviaBloc.
+sealed class NumberTriviaState extends Equatable {
+  const NumberTriviaState();
+
   @override
   List<Object> get props => [];
 }
 
-class Empty extends NumberTriviaState {}
+/// Represents the initial state of the bloc, before any trivia is fetched.
+final class Empty extends NumberTriviaState {}
 
-class Loading extends NumberTriviaState {}
+/// Represents a loading state while fetching trivia data.
+final class Loading extends NumberTriviaState {}
 
-class Loaded extends NumberTriviaState {
+/// Represents a loaded state containing number trivia data.
+final class Loaded extends NumberTriviaState {
+  /// Constructor that initializes the state with the provided [trivia].
+  const Loaded({required this.trivia});
+
+  /// The trivia data that has been loaded.
   final NumberTrivia trivia;
-
-  Loaded({@required this.trivia});
 
   @override
   List<Object> get props => [trivia];
 }
 
-class Error extends NumberTriviaState {
-  final String message;
+/// Represents an error state with an associated failure message.
+final class Error extends NumberTriviaState {
+  /// Constructor that initializes the error state with the provided [message].
+  const Error({required this.message});
 
-  Error({@required this.message});
+  /// The error message detailing the failure.
+  final String message;
 
   @override
   List<Object> get props => [message];

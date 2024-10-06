@@ -1,30 +1,33 @@
-import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/bloc/bloc.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/bloc/number_trivia_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// A widget that provides controls for interacting with trivia functionality.
 class TriviaControls extends StatefulWidget {
+  ///  Default constructor that accepts an optional [key].
   const TriviaControls({
-    Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _TriviaControlsState createState() => _TriviaControlsState();
+  State<TriviaControls> createState() => _TriviaControlsState();
 }
 
 class _TriviaControlsState extends State<TriviaControls> {
   final controller = TextEditingController();
-  String inputStr;
+  String inputStr = '';
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         TextField(
-          controller: controller,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'Input Number',
             border: OutlineInputBorder(),
-            hintText: 'Input a number',
+            enabledBorder: OutlineInputBorder(),
           ),
           onChanged: (value) {
             inputStr = value;
@@ -33,26 +36,50 @@ class _TriviaControlsState extends State<TriviaControls> {
             dispatchConcrete();
           },
         ),
-        SizedBox(height: 10),
+        const SizedBox(
+          height: 15,
+        ),
         Row(
-          children: <Widget>[
+          children: [
             Expanded(
-              child: RaisedButton(
-                child: Text('Search'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: dispatchConcrete,
+              child: SizedBox(
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: dispatchConcrete,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: const Text(
+                    'Search',
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
-              child: RaisedButton(
-                child: Text('Get random trivia'),
-                onPressed: dispatchRandom,
+              child: SizedBox(
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: dispatchRandom,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff9E22B2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: const Text(
+                    'Get random trivia',
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                ),
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

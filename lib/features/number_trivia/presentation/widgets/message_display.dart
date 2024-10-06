@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 
+/// A widget that displays a message.
 class MessageDisplay extends StatelessWidget {
-  final String message;
-
+  /// Creates an instance of [MessageDisplay] with a required [message].
   const MessageDisplay({
-    Key key,
-    @required this.message,
-  }) : super(key: key);
+    required this.message,
+    super.key,
+  });
+
+  /// The message to be displayed.
+  final String message;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height / 3,
       child: Center(
         child: SingleChildScrollView(
           child: Text(
             message,
-            style: TextStyle(fontSize: 25),
+            style: const TextStyle(fontSize: 25),
             textAlign: TextAlign.center,
           ),
         ),

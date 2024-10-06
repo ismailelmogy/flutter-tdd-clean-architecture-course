@@ -1,17 +1,18 @@
+import 'package:clean_architecture_tdd_course/core/error/failures.dart';
+import 'package:clean_architecture_tdd_course/core/usecases/usecase.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../entities/number_trivia.dart';
-import '../repositories/number_trivia_repository.dart';
-
+/// Use case to fetch random number trivia.
 class GetRandomNumberTrivia implements UseCase<NumberTrivia, NoParams> {
-  final NumberTriviaRepository repository;
+  /// Constructor that takes the [NumberTriviaRepository].
+  GetRandomNumberTrivia(this.numberTriviaRepository);
 
-  GetRandomNumberTrivia(this.repository);
+  /// Repository to fetch the number trivia.
+  final NumberTriviaRepository numberTriviaRepository;
 
   @override
-  Future<Either<Failure, NumberTrivia>> call(NoParams params) async {
-    return await repository.getRandomNumberTrivia();
-  }
+  Future<Either<Failure, NumberTrivia>> call(NoParams noParams) async =>
+      numberTriviaRepository.getRandomNumberTrivia();
 }

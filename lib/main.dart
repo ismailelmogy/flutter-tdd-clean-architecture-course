@@ -1,23 +1,36 @@
+import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/screens/number_trivia_screen.dart';
+import 'package:clean_architecture_tdd_course/injection_container.dart' as di;
 import 'package:flutter/material.dart';
-import 'features/number_trivia/presentation/pages/number_trivia_page.dart';
-import 'injection_container.dart' as di;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(MyApp());
+  runApp(const NumberTriviaApp());
 }
 
-class MyApp extends StatelessWidget {
+/// The root widget of app
+class NumberTriviaApp extends StatelessWidget {
+  ///  Default constructor that accepts an optional [key].
+  const NumberTriviaApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Number Trivia',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.green.shade800,
-        accentColor: Colors.green.shade600,
+        fontFamily: 'Poppins',
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xff6A149C),
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 22),
+        ),
+        colorScheme:
+            ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+          secondary: Colors.purple.shade600,
+        ),
       ),
-      home: NumberTriviaPage(),
+      home: const NumberTriviaScreen(),
     );
   }
 }
